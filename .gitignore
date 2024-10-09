@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+
+# Archivo de bloqueo de paquetes
+package-lock.json
+
+# Dependencias de desarrollo
+.env
+
+
+# Archivos de configuración de editor
+.vscode/
+.idea/
+
