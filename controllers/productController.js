@@ -10,9 +10,9 @@ const ProductController = {
               filters.category = req.query.category
             }
             const products = await Product.find(filters);
-            const productCards = getProductCards(products,req.url.startsWith('/dashboard'));
+            const productCards = getProductCards(products,req.user);
             
-            const html = baseHtmlInit + getNavBar(req.url.startsWith('/dashboard')) + productCards + baseHtmlEnd;
+            const html = baseHtmlInit + getNavBar(req.user) + productCards + baseHtmlEnd;
             
             if (req.query.format === 'json') {
               return res.json(products)
@@ -25,9 +25,9 @@ const ProductController = {
     async showProductById (req, res) {
         try {
             const productId = await Product.findById(req.params.productId)
-            const productCard = getProductDetail(productId,req.url.startsWith('/dashboard'));
+            const productCard = getProductDetail(productId,req.user);
             
-            const html = baseHtmlInit + getNavBar(req.url.startsWith('/dashboard')) + productCard + baseHtmlEnd;
+            const html = baseHtmlInit + getNavBar(req.user) + productCard + baseHtmlEnd;
             
             if (req.query.format === 'json') {
               return res.json(productId)
@@ -95,7 +95,7 @@ const ProductController = {
           } catch (err) {
             console.error("no se ha podido eliminar el producto")
           }
-    },
+    }
 
 }
 

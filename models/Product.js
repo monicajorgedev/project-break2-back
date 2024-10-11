@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-//OJO EN EL MODELO EN LA IMAGEN HE PUESTO TIPO DE DATO MIXED, TENGO QUE MIRARLO
 
 const ProductSchema = new mongoose.Schema({
     name: String,

@@ -14,7 +14,7 @@ const baseHtmlInit = `<!DOCTYPE html>
 const baseHtmlEnd = `</body><footer> </footer></html>`;
 
 
-const getProductCards = (products, isAdmin) => {
+const getProductCards = (products, user) => {
     let html = '';
     for (let product of products) {
       html += `
@@ -23,14 +23,14 @@ const getProductCards = (products, isAdmin) => {
           <h2>${product.name}</h2>
           <p>${product.description}</p>
           <p>${product.price}€</p>
-          <a href="${isAdmin ? `/dashboard/${product._id}`: `/products/${product._id}`}">Ver detalle</a>
+          <a href="${user ? `/dashboard/${product._id}`: `/products/${product._id}`}">Ver detalle</a>
         </div>
       `;
     } 
     return html;
 }
 
-const getProductDetail = (product, isAdmin) => {
+const getProductDetail = (product, user) => {
     let html = '';
     
       html = `
@@ -41,7 +41,7 @@ const getProductDetail = (product, isAdmin) => {
           <p>${product.price}€</p>
           <p>Categoria: ${product.category}</p>
           <p>Talla: ${product.size}</p>
-          ${isAdmin ? `<a href="/dashboard/${product._id}/edit">Editar</a>
+          ${user ? `<a href="/dashboard/${product._id}/edit">Editar</a>
             <a href="/dashboard/${product._id}/delete">Borrar</a>`: ''}
         </div>
       `;
@@ -50,6 +50,8 @@ const getProductDetail = (product, isAdmin) => {
 
 const getProductForm = (product) => {
     const form = `
+    <div class="formulario">
+    <h2>Datos del producto</h2>   
     <form method="POST" action="${product ? `/dashboard/${product._id}`: '/dashboard'}">
         <label name="name">Nombre del producto</label>
         <input type="text" name="name" value="${product ? `${product.name}` : ''}" required/>
@@ -69,22 +71,49 @@ const getProductForm = (product) => {
         <label name="price">Precio</label>
         <input type="number" min="0" name="price" value="${product?.price}" required/>
         <input class="button" type="submit" value="Enviar""/>
-    </form>`;
+    </form>
+    </div>`;
     return form;
 }
 
-const getNavBar = (isAdmin) => {
+const getNavBar = (user) => {
      return `<header class="navbar">
           <div class="links">
-              <a href="${isAdmin ? '/dashboard' : '/products' }">Productos</a>
-              <a href="${isAdmin ? '/dashboard?category=camisetas' : '/products?category=camisetas' }">Camisetas</a>
-              <a href="${isAdmin ? '/dashboard?category=pantalones' : '/products?category=pantalones' }">Pantalones</a>
-              <a href="${isAdmin ? '/dashboard?category=zapatillas' : '/products?category=zapatillas' }">Zapatillas</a>
-              ${!isAdmin ? '<a href="">Login</a>' : "" }
-              ${isAdmin ? '<a href="/dashboard/new">Nuevo Producto</a><a href="/dashboard/logout">Logout</a>' : ''}
+              <a href="${user ? '/dashboard' : '/products' }">Productos</a>
+              <a href="${user ? '/dashboard?category=camisetas' : '/products?category=camisetas' }">Camisetas</a>
+              <a href="${user ? '/dashboard?category=pantalones' : '/products?category=pantalones' }">Pantalones</a>
+              <a href="${user ? '/dashboard?category=zapatillas' : '/products?category=zapatillas' }">Zapatillas</a>
+              ${!user ? '<a href="/login">Login</a>' : "" }
+              ${user ? '<a href="/dashboard/new">Nuevo Producto</a><a href="/logout">Logout</a>' : ''}
           </div>
        </header>`
     
+}
+
+const registerForm = () => {
+  const form = `
+  <h2>Registro</h2>
+  <form method="POST" action="/register">
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+   <input class="button" type="submit" value="Aceptar""/>
+  </form>
+  `
+  return form;
+}
+
+const loginForm = () => {
+  const form = `
+  <h2>Login</h2>
+  <form>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button class="button" id="loginButton">Aceptar</button>
+   <div id="mensaje"></div>
+  </form>
+  <script type="module" src="./utils/configLogin.js"></script>
+  `
+  return form;
 }
 
 module.exports = {
@@ -93,5 +122,7 @@ module.exports = {
     getProductCards,
     getProductDetail,
     getProductForm,
-    getNavBar
+    getNavBar,
+    registerForm,
+    loginForm
 }

@@ -1,20 +1,20 @@
 const express = require('express')
 const router = express.Router()
-const ProductController = require('../controllers/product-controller')
+const ProductController = require('../controllers/productController')
+const checkAuth = require('../middlewares/checkAuth')
 
-//OJO REVISAR LAS RUTAS PUES HAY ALGUNAS QUE NO HACEN LO QUE TIENEN QUE HACER. 
 
 router.get('/products', ProductController.showProducts)
 router.get('/products/:productId' , ProductController.showProductById)
-router.get('/dashboard', ProductController.showProducts)
-router.get('/dashboard/new', ProductController.showNewProduct)
-router.post('/dashboard', ProductController.createProduct)
-router.get('/dashboard/:productId', ProductController.showProductById)
-router.get('/dashboard/:productId/edit', ProductController.showEditProduct)
-router.post('/dashboard/:productId', ProductController.updateProduct)
-router.put('/dashboard/:productId', ProductController.updateProduct)
-router.get('/dashboard/:productId/delete', ProductController.deleteProduct)
-router.delete('/dashboard/:productId/delete', ProductController.deleteProduct)
+router.get('/dashboard', checkAuth, ProductController.showProducts)
+router.get('/dashboard/new',checkAuth, ProductController.showNewProduct)
+router.post('/dashboard', checkAuth,ProductController.createProduct)
+router.get('/dashboard/:productId',checkAuth, ProductController.showProductById)
+router.get('/dashboard/:productId/edit',checkAuth, ProductController.showEditProduct)
+router.post('/dashboard/:productId',checkAuth, ProductController.updateProduct)
+router.put('/dashboard/:productId', checkAuth,ProductController.updateProduct)
+router.get('/dashboard/:productId/delete', checkAuth, ProductController.deleteProduct)
+router.delete('/dashboard/:productId/delete', checkAuth, ProductController.deleteProduct)
 
 module.exports = router
 

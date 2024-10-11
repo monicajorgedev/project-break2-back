@@ -1,43 +1,53 @@
 PROJECT BREAK BACK . API TIENDA DE ROPA.
 
-En este proyecto se va a crear un API de una tienda de ropa con un catálogo de productos y un dashboard para el administrador. 
+En este proyecto se ha creado una API de una tienda de ropa con un catálogo de productos y un dashboard para el administrador. 
 
-- Paso 1. Inicializamos el proyecto. 
-Primero, configuramos nuestro proyecto, le inicializamos e instalamos las dependencias de package.json que vamos a necesitar primero. 
+INSTALACIÓN:
+Lo primero que hay que hacer para que funcione es hacer un npm install pues ya tiene todas las dependencias necesarias. 
 
-En la terminal escribimos :
-npm init -y
-npm install express mongoose dotenv
+Y para arrancar el servidor el comando es npm start.
 
-Después creamos los archivos .gitignore  .env
-En .gitignore añadimos los archivos que no queramos que se suban de nuestro proyecto.
-En .env añadiremos las variables de entorno, el puerto y la URI de Mongo Atlas
+Este proyecto tiene como variables de entorno una MONGO_URI necesaria para enlazar con la base de datos a MONGO ATLAS,
+además  de las variables necesarias para Firebase. 
 
-- Paso 2. Creamos un servidor http con express en index.js
+El modelo del producto tiene el siguiente esquema {name, description, imgUrl, category, size, price}
 
-Añadimos las siguientes lineas para no tener problemas de lectura 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+DESCRIPCIÓN:
+Las rutas son las siguientes. 
+/products es desde el lado público y /dashboard es desde el lado del administrador. 
 
-- Paso 3. Creamos y conectamos a nueva base de datos en Mongo Atlas
-Añadimos a .env la MONGO_URI.
-y creamos la carpeta config donde ira el archivo db.js con la configuración para la conexión a la base de datos. 
+GET /products: Devuelve todos los productos. Cada producto tiene un enlace a su página de detalle.
+GET /products/:productId: Devuelve el detalle de un producto.
+GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecen todos los artículos que se han subido. Si clickamos en uno de ellos nos lleva a su página de detalle para poder actualizarlo o eliminarlo.
+GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
+POST /dashboard: Crea un nuevo producto.
+GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
+GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
+PUT /dashboard/:productId: Actualiza un producto.
+DELETE /dashboard/:productId/delete: Elimina un producto.
 
-- Paso 4. Creamos el modelo de producto
+Esas rutas devuelven una respuesta en HTML.
 
-En la carpeta models creamos el archivo product.js donde crearemos el modelo de producto
+Respuesta en Json. 
+Para que los controladores den una respuesta en formato Json, hay que pasarle un query params ?format=json .
 
-- Paso 5. Creamos los controladores 
-Creamos las carpeta controllers y dentro el archivo productController.js donde añadiremos los controladores. 
-Devuelve la respuesta en formato HTML.
+Distribucción de carpetas del proyecto.
+- config. Es donde esta los archivos de configuración de la base de datos y de firebase. 
+- controllers. Donde están los controlados de autenticación y de producto.
+- middlewares. con el archivo checkAuth.js que utilizaremos para checkear si esta logado y dar acceso si procede. 
+- models. con el archivo product.js donde esta el esquema del modelo
+- public con el archivo styles.css donde están los estilos, la carpeta images donde están las imagenes de los productos y la carpeta utils con el archivo configLogin.js que contiene el script necesario en firebase que usaremos desde el front.
+- routes con el archivo authRoutes con las rutas para el login y  el archivo productRoutes.js donde añadiremos las rutas CRUD para los productos. Estos llaman a los metodos de los controladores. 
+- templates con el archivo templates.js donde van las funciones y variables para crear los html.
+-index.js donde se inicializa el servidor. 
 
-Creamos a su vez la carpeta templates con el archivo templates.js donde van las funciones y variables para crear los html.
 
-- Paso 6. Creamos las rutas. 
-Creamos la carpeta routes y dentro el archivo productRoutes.js donde añadiremos las rutas CRUD para los productos. Este llama a los metodos del controlador. 
+DOCUMENTACIÓN CON POSTMAN Y SWAGGER 
+Nos encontramos con el inconveniente que antes de hacer la autenticación funcionaban las peticiones y después ya no funciona. 
+Enlaces: Postman   
+         Swagger:
 
-- Paso 7. Creamos la carpeta public
-Añadidos el archivo styles.css donde añadiremos los estilos y la carpeta images donde añadiremos las imagenes de los productos.
+REGISTRO:
+Para realizar el registro del usuario autorizado hay que acceder a la siguiente path: /register 
 
-- Paso 8. Respuesta en Json. 
-Para que los controladores den una respuesta en formato Json, se han modificado y añadido un condicional, donde dependiendo si le pasas un query params ?format=json te devuelve json y en cualquier otro caso te devuelve html.
+
