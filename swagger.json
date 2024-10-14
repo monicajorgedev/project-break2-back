@@ -1,0 +1,372 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Product API",
+    "description": "API for managing products",
+    "version": "1.0.0"
+  },
+  "servers": [
+     {
+       "url": "http://localhost:3000"
+     }
+  ],
+  "security": [{
+    
+    "ApiKeyAuth":{
+      "type": "apiKey",
+      "in": "cookie",
+      "name": "token"
+    } 
+  }],
+  
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Retrieve a list of products",
+        "description": "Retrieve a list of products with optional category filtering.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter products by category"
+          },
+          {
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "type": "string",
+              "enum": ["json"]
+            },
+            "description": "Return data in JSON format if specified"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error retrieving products"
+          }
+        }
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Retrieve a product by ID",
+        "description": "Retrieve details of a specific product by its ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The product ID"
+          },
+          {
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "type": "string",
+              "enum": ["json"]
+            },
+            "description": "Return data in JSON format if specified"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A product object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error retrieving product"
+          }
+        }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "security": [{
+          "ApiKeyAuth": []
+        }],
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Retrieve a list of products",
+        "description": "Retrieve a list of products with optional category filtering.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter products by category"
+          },
+          {
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "type": "string",
+              "enum": ["json"]
+            },
+            "description": "Return data in JSON format if specified"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error retrieving products"
+          }
+        }
+      },
+      "post": {
+        "security": [{
+          "ApiKeyAuth": []
+        }],
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Create a new product",
+        "description": "Creates a new product based on the provided data.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error creating product"
+          }
+        }
+      }
+    },
+    "/dashboard/{productId}": {
+    "get": {
+      "security": [{
+          "ApiKeyAuth": []
+        }],
+      "tags": [
+          "Dashboard"
+        ],
+      "summary": "Retrieve a product by ID",
+      "description": "Retrieve details of a specific product by its ID.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "productId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "The product ID"
+        },
+        {
+          "in": "query",
+          "name": "format",
+          "schema": {
+            "type": "string",
+            "enum": ["json"]
+          },
+          "description": "Return data in JSON format if specified"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "A product object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            },
+            "text/html": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Error retrieving product"
+        }
+      }
+    },
+    "put": {
+      "security": [{
+          "ApiKeyAuth": []
+        }],
+      "tags": [
+          "Dashboard"
+        ],
+      "summary": "Update a product",
+      "description": "Updates an existing product based on the provided data.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "productId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "The product ID"
+        }
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Product updated successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Error updating product"
+        }
+      }
+    },
+    "delete": {
+      "security": [{
+          "ApiKeyAuth": []
+        }],
+      "tags": [
+          "Dashboard"
+        ],
+      "summary": "Delete a product",
+      "description": "Deletes a product by its ID.",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "productId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "The product ID"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Product deleted successfully",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Error deleting product"
+        }
+      }
+    }
+    }
+  },
+  "components": {
+  "schemas": {
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "imgUrl": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
+}

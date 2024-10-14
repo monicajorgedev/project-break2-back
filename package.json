@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch index.js"
+    "start": "node --watch index.js",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,10 @@
     "express": "^4.21.0",
     "firebase": "^10.14.0",
     "firebase-admin": "^12.6.0",
-    "mongoose": "8.6.3"
+    "mongoose": "8.6.3",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

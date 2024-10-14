@@ -1,8 +1,8 @@
-PROJECT BREAK BACK . API TIENDA DE ROPA.
+# # **PROJECT BREAK BACK . API TIENDA DE ROPA.**
 
 En este proyecto se ha creado una API de una tienda de ropa con un catálogo de productos y un dashboard para el administrador. 
 
-INSTALACIÓN:
+**INSTALACIÓN:**
 Lo primero que hay que hacer para que funcione es hacer un npm install pues ya tiene todas las dependencias necesarias. 
 
 Y para arrancar el servidor el comando es npm start.
@@ -12,7 +12,7 @@ además  de las variables necesarias para Firebase.
 
 El modelo del producto tiene el siguiente esquema {name, description, imgUrl, category, size, price}
 
-DESCRIPCIÓN:
+**DESCRIPCIÓN:**
 Las rutas son las siguientes. 
 /products es desde el lado público y /dashboard es desde el lado del administrador. 
 
@@ -42,12 +42,13 @@ Distribucción de carpetas del proyecto.
 -index.js donde se inicializa el servidor. 
 
 
-DOCUMENTACIÓN CON POSTMAN Y SWAGGER 
-Nos encontramos con el inconveniente que antes de hacer la autenticación funcionaban las peticiones y después ya no funciona. 
-Enlaces: Postman   
-         Swagger:
+**DOCUMENTACIÓN SWAGGER:**
 
-REGISTRO:
+Nos encontramos con el inconveniente que antes de hacer la autenticación funcionaban las peticiones y después ya no funciona salvo que estes locado. Para poder consultar la documentación con Swagger hay que acceder a la siguiente path: /api-docs
+
+**REGISTRO:**
 Para realizar el registro del usuario autorizado hay que acceder a la siguiente path: /register 
 
+**TESTING**
+Para ejecutar los test, abrimos la consola y ejecutamos: $ npm run test:watch
 
