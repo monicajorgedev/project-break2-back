@@ -1,6 +1,6 @@
 const ProductController = require('../controllers/productController');
 const Product = require('../models/Product');
-const { getProductCards, getProductDetail, getProductForm, getNavBar, baseHtmlInit, baseHtmlEnd } = require('../templates/templates');
+const { getProductCards, getProductDetail, getProductForm, getNavBar} = require('../templates/templates');
 
 jest.mock('../models/Product');
 jest.mock('../templates/templates');

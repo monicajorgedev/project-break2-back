@@ -4,6 +4,7 @@ const ProductController = require('../controllers/productController')
 const checkAuth = require('../middlewares/checkAuth')
 
 
+router.get('/', ProductController.showProducts)
 router.get('/products', ProductController.showProducts)
 router.get('/products/:productId' , ProductController.showProductById)
 router.get('/dashboard', checkAuth, ProductController.showProducts)

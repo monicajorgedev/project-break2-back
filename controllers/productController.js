@@ -19,7 +19,7 @@ const ProductController = {
             }
             res.send(html);
           } catch (err) {
-            console.error("Error al traer los datos", err)
+            console.error('Error getting data', err)
           }
     },
     async showProductById (req, res) {
@@ -34,7 +34,7 @@ const ProductController = {
             }
             res.send(html)
           } catch (err) {
-            console.error("Error al acceder al producto", err)
+            console.error('Error accessing the product', err)
           }
     },
     async showNewProduct (req, res) {
@@ -50,7 +50,7 @@ const ProductController = {
             }
             res.redirect('/dashboard')
           } catch (err) {
-            console.error("Error al crear", err)
+            console.error('Error creating product', err)
           }
     },
     async showEditProduct (req, res) {
@@ -61,7 +61,7 @@ const ProductController = {
         res.send(html)
 
       } catch (error){
-        console.error("Error al actualizar el producto", err)
+        console.error('Error updating product', err)
       }
     },
     async updateProduct (req, res) {
@@ -81,7 +81,7 @@ const ProductController = {
             }
             res.redirect('/dashboard')
           } catch (error) {
-            console.error("Error al actualizar el producto", err)
+            console.error('Error updating product', err)
           }
     },
     async deleteProduct (req, res) {
@@ -93,7 +93,7 @@ const ProductController = {
             }
             res.redirect('/dashboard')
           } catch (err) {
-            console.error("no se ha podido eliminar el producto")
+            console.error('Product could not be deleted')
           }
     }
 

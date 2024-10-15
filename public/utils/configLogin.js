@@ -3,12 +3,12 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCi3lLNHnSArgkvHxVt-pfliCV2xps7xvQ",
-  authDomain: "projectbreakback.firebaseapp.com",
-  projectId: "projectbreakback",
-  storageBucket: "projectbreakback.appspot.com",
-  messagingSenderId: "729131511239",
-  appId: "1:729131511239:web:d34618e73f8f25a5a23de2"
+  apiKey: 'AIzaSyCi3lLNHnSArgkvHxVt-pfliCV2xps7xvQ',
+  authDomain: 'projectbreakback.firebaseapp.com',
+  projectId: 'projectbreakback',
+  storageBucket: 'projectbreakback.appspot.com',
+  messagingSenderId: '729131511239',
+  appId: '1:729131511239:web:d34618e73f8f25a5a23de2'
 };
 
 
